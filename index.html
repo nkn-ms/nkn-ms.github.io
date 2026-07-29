@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nkn-ms — 制作物</title>
+<meta name="description" content="nkn-ms の制作物一覧。Web アプリケーション・ブラウザ拡張・エディタ拡張。">
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --fg-muted: #6b7280;   /* gray-500: AA を満たす最も薄いグレー */
+    --border: #e5e7eb;
+    --link: #1d4ed8;       /* blue-700 */
+    --tag-bg: #f7f7f8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14161a;
+      --fg: #e8e8ea;
+      --fg-muted: #a1a7b0;
+      --border: #2c3038;
+      --link: #93b4ff;
+      --tag-bg: #1c1f25;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 3rem 1.25rem 4rem;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+    line-height: 1.75;
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 44rem; margin: 0 auto; }
+
+  a { color: var(--link); }
+  a:hover { text-decoration: none; }
+
+  h1 { font-size: 1.6rem; margin: 0 0 .4rem; letter-spacing: .01em; }
+  h2 { font-size: 1.15rem; margin: 0 0 .35rem; }
+  h3 {
+    font-size: .8rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--fg-muted);
+    margin: 3rem 0 1.25rem;
+  }
+  p { margin: 0 0 .75rem; }
+
+  header { margin-bottom: 1rem; }
+  .lead { color: var(--fg-muted); margin-bottom: 1rem; }
+
+  .work {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .work:first-of-type { border-top: none; padding-top: .25rem; }
+
+  .links { margin: 0 0 .75rem; font-size: .9rem; }
+  .links a + a::before,
+  .links a + .note::before { content: "·"; color: var(--fg-muted); margin: 0 .5rem; }
+  .note { color: var(--fg-muted); }
+
+  .tags { list-style: none; display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; margin: .75rem 0 0; }
+  .tags li {
+    font-size: .78rem; line-height: 1.6;
+    padding: 0 .5rem;
+    border: 1px solid var(--border); border-radius: 4px;
+    background: var(--tag-bg); color: var(--fg-muted);
+  }
+
+  .points { margin: .75rem 0 0; padding-left: 1.15rem; color: var(--fg-muted); font-size: .93rem; }
+  .points li { margin-bottom: .25rem; }
+
+  .minor { list-style: none; padding: 0; margin: 0; }
+  .minor li { padding: .6rem 0; border-top: 1px solid var(--border); font-size: .95rem; }
+  .minor li:first-child { border-top: none; }
+  .minor .desc { color: var(--fg-muted); }
+
+  footer {
+    margin-top: 3.5rem; padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+    color: var(--fg-muted); font-size: .9rem;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>nkn-ms</h1>
+    <p class="lead">
+      Web アプリケーションを中心に作っています。<br>
+      個人開発の成果物をまとめました。
+    </p>
+    <p><a href="https://github.com/nkn-ms">github.com/nkn-ms</a></p>
+  </header>
+
+  <h3>制作物</h3>
+
+  <article class="work">
+    <h2>Errata Hub</h2>
+    <p class="links">
+      <a href="https://errata-hub.vercel.app">サイトを開く</a>
+      <a href="https://github.com/nkn-ms/errata-hub">ソースコード</a>
+    </p>
+    <p>
+      技術書を読んでいて見つけた誤りや「こう書いた方が読みやすい」という気づきを、読者が投稿して共有できる公開サイトです。
+      投稿には誤りの箇所（ページ・行や版・刷）を添えられ、出版社からの回答・対応状況は管理者が記録して公開します。
+    </p>
+    <p>
+      不特定多数が投稿する公開 UGC を題材に、認証・認可・データ整合性・セキュリティといった
+      「実運用で効いてくる設計」を一通り自分で実装することを狙いとしました。実際に運用しています。
+    </p>
+    <ul class="points">
+      <li>認可はサーバー層に集約 — 操作ごとに DB の最新ロールを確認する関数を通ることを唯一の信頼境界とし、画面側のガードは補助に留める</li>
+      <li>PostgreSQL の RLS は「公開裏口を塞ぐロック」として使い、データ操作は信頼できるサーバー経由に限定</li>
+      <li>ISBN-10/13 を ISBN-13 に正規化して名寄せ、一意制約で重複登録を防止</li>
+      <li>削除等は操作前データを監査ログに記録</li>
+      <li>単体テスト・E2E テストを CI で実行（lint / typecheck / test / build）</li>
+    </ul>
+    <ul class="tags">
+      <li>Next.js 16 (App Router)</li><li>React 19</li><li>TypeScript</li><li>Tailwind CSS v4</li>
+      <li>PostgreSQL</li><li>Prisma v7</li><li>Supabase Auth</li><li>Zod</li>
+      <li>Vitest</li><li>Playwright</li><li>GitHub Actions</li><li>Vercel</li>
+    </ul>
+  </article>
+
+  <article class="work">
+    <h2>Redux State Editor</h2>
+    <p class="links">
+      <span class="note">リポジトリ非公開</span>
+    </p>
+    <p>
+      Redux の state を DevTools パネルのフォームから直接編集できる Chrome 拡張（プロトタイプ）です。
+      Vuex devtools にある「state をその場で書き換えて画面の変化を見る」操作を Redux でもできるようにしました。
+      編集は専用のアクションとして store に dispatch されるため、React-Redux が通常どおり再描画され、公式の Redux DevTools の履歴・タイムトラベルとも整合します。
+    </p>
+    <ul class="points">
+      <li>Redux Toolkit のアプリならアプリ側の変更ゼロで動作（DevTools 用フックに相乗りする方式）</li>
+      <li>state はポーリングではなく <code>store.subscribe</code> からの push で配信（100ms スロットル）。push が使えない場合のみポーリングにフォールバック</li>
+      <li>公式 Redux DevTools 拡張との共存に対応（読み込み順に依存しない）</li>
+    </ul>
+    <ul class="tags">
+      <li>Chrome Extension (MV3)</li><li>JavaScript</li><li>Redux / Redux Toolkit</li><li>GitHub Actions</li>
+    </ul>
+  </article>
+
+  <article class="work">
+    <h2>cd to active file directory in statusbar</h2>
+    <p class="links">
+      <a href="https://marketplace.visualstudio.com/items?itemName=nkn-ms.cd-to-active-file-directory-in-statusbar">Marketplace</a>
+      <a href="https://github.com/nkn-ms/vscode-cd-to-active-file-directory">ソースコード</a>
+    </p>
+    <p>
+      編集中のファイルがあるディレクトリへ、ステータスバーのボタンひとつでターミナルを <code>cd</code> させる VS Code 拡張です。
+      Visual Studio Marketplace で公開しています。
+    </p>
+    <ul class="tags">
+      <li>VS Code Extension</li><li>TypeScript</li>
+    </ul>
+  </article>
+
+  <article class="work">
+    <h2>anti-street-harassment</h2>
+    <p class="links">
+      <a href="https://github.com/nkn-ms/anti-street-harassment">ソースコード</a>
+    </p>
+    <p>
+      路上で迷惑行為を受けた際に、録画と警告メッセージで身を守るための Web アプリです。
+      ボタンひとつで、警告文の画面表示・音声読み上げ・録画が同時に始まります。アプリのインストールは不要です。
+    </p>
+    <ul class="points">
+      <li>警告メッセージは <code>SpeechSynthesis</code> で読み上げ、繰り返し再生。読み上げのオン/オフを切り替え可能</li>
+      <li>録画はブラウザ標準の <code>getUserMedia</code> / <code>MediaRecorder</code> のみで完結し、サーバーに送信しない（端末内に留め、必要な人だけがダウンロードして証拠として残す）</li>
+      <li>緊急時のための 110番通報ボタン</li>
+      <li>カメラの許可拒否・未接続・他アプリが使用中を切り分けて、対処方法つきで表示</li>
+    </ul>
+    <ul class="tags">
+      <li>Next.js 16</li><li>React 19</li><li>TypeScript</li><li>Tailwind CSS v4</li>
+    </ul>
+  </article>
+
+  <h3>その他</h3>
+  <ul class="minor">
+    <li>
+      <a href="https://github.com/nkn-ms/ai-chat">ai-chat</a>
+      <span class="desc">— Claude を使ったチャットアプリの試作。Next.js 16 / AI SDK / Mastra / Hono / Prisma / Docker</span>
+    </li>
+    <li>
+      <a href="https://github.com/nkn-ms/scraping-note">scraping-note</a>
+      <span class="desc">— Puppeteer によるスクレイピングの習作。Vue / Vuex / Vue Router</span>
+    </li>
+  </ul>
+
+  <footer>
+    <p>お問い合わせは <a href="https://github.com/nkn-ms">GitHub</a> からお願いします。</p>
+  </footer>
+
+</div>
+</body>
+</html>
