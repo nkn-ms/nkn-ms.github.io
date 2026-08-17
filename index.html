@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>nkn-ms — ポートフォリオ</title>
-<meta name="description" content="nkn-ms のポートフォリオ。Web アプリケーション・VS Code 拡張。">
+<meta name="description" content="nkn-ms のポートフォリオ。制作物・外部への貢献・記事・アカウントのリンク集。">
 <style>
   :root {
     --bg: #ffffff;
@@ -41,28 +41,22 @@
   a { color: var(--link); }
   a:hover { text-decoration: none; }
 
-  h1 { font-size: 1.6rem; margin: 0 0 .4rem; letter-spacing: .01em; }
-  h2 { font-size: 1.15rem; margin: 0 0 .35rem; }
+  h1 { font-size: 1.6rem; margin: 0 0 2.5rem; letter-spacing: .01em; }
+  h2 { font-size: 1.1rem; margin: 0 0 .35rem; }
   h3 {
     font-size: .8rem; font-weight: 600; letter-spacing: .08em;
     text-transform: uppercase; color: var(--fg-muted);
-    margin: 3rem 0 1.25rem;
+    margin: 2.75rem 0 1.25rem;
   }
-  p { margin: 0 0 .75rem; }
+  p { margin: 0 0 .5rem; }
 
-  header { margin-bottom: 1rem; }
-  .lead { color: var(--fg-muted); margin-bottom: 1rem; }
+  .work { padding: 1.25rem 0; border-top: 1px solid var(--border); }
+  .work:first-of-type { border-top: none; padding-top: 0; }
 
-  .work {
-    padding: 1.5rem 0;
-    border-top: 1px solid var(--border);
-  }
-  .work:first-of-type { border-top: none; padding-top: .25rem; }
-
-  .links { margin: 0 0 .75rem; font-size: .9rem; }
+  .links { margin: 0 0 .5rem; font-size: .9rem; }
   .links a + a::before { content: "·"; color: var(--fg-muted); margin: 0 .5rem; }
 
-  .tags { list-style: none; display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; margin: .75rem 0 0; }
+  .tags { list-style: none; display: flex; flex-wrap: wrap; gap: .35rem; padding: 0; margin: .6rem 0 0; }
   .tags li {
     font-size: .78rem; line-height: 1.6;
     padding: 0 .5rem;
@@ -70,25 +64,18 @@
     background: var(--tag-bg); color: var(--fg-muted);
   }
 
-  .points { margin: .75rem 0 0; padding-left: 1.15rem; color: var(--fg-muted); font-size: .93rem; }
-  .points li { margin-bottom: .25rem; }
-
-  footer {
-    margin-top: 3.5rem; padding-top: 1.25rem;
-    border-top: 1px solid var(--border);
-    color: var(--fg-muted); font-size: .9rem;
-  }
+  .list { list-style: none; padding: 0; margin: 0; }
+  .list > li { padding: .7rem 0; border-top: 1px solid var(--border); }
+  .list > li:first-child { border-top: none; padding-top: 0; }
+  .desc { display: block; color: var(--fg-muted); font-size: .9rem; }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <header>
-    <h1>nkn-ms</h1>
-    <p class="lead"><a href="https://github.com/nkn-ms">github.com/nkn-ms</a></p>
-  </header>
+  <h1>nkn-ms</h1>
 
-  <h3>ポートフォリオ</h3>
+  <h3>制作物</h3>
 
   <article class="work">
     <h2>Errata Hub</h2>
@@ -97,20 +84,10 @@
       <a href="https://github.com/nkn-ms/errata-hub">ソースコード</a>
     </p>
     <p>
-      技術書を読んでいて見つけた誤りや「こう書いた方が読みやすい」という気づきを、読者が投稿して共有できる公開サイトです。
-      投稿には誤りの箇所（ページ・行や版・刷）を添えられ、出版社からの回答・対応状況は管理者が記録して公開します。
+      技術書で見つけた誤りや改善案を読者が投稿して共有できる公開サイトです。
+      不特定多数が投稿する公開 UGC を題材に、認証・認可・データ整合性・セキュリティを一通り実装しました。実際に運用しています。
+      設計上の判断は <a href="https://github.com/nkn-ms/errata-hub#readme">README</a> に記載しています。
     </p>
-    <p>
-      不特定多数が投稿する公開 UGC を題材に、認証・認可・データ整合性・セキュリティといった
-      「実運用で効いてくる設計」を一通り自分で実装することを狙いとしました。実際に運用しています。
-    </p>
-    <ul class="points">
-      <li>認可はサーバー層に集約 — 操作ごとに DB の最新ロールを確認する関数を通ることを唯一の信頼境界とし、画面側のガードは補助に留める</li>
-      <li>PostgreSQL の RLS は「公開裏口を塞ぐロック」として使い、データ操作は信頼できるサーバー経由に限定</li>
-      <li>ISBN-10/13 を ISBN-13 に正規化して名寄せ、一意制約で重複登録を防止</li>
-      <li>削除等は操作前データを監査ログに記録</li>
-      <li>単体テスト・E2E テストを CI で実行（lint / typecheck / test / build）</li>
-    </ul>
     <ul class="tags">
       <li>Next.js 16 (App Router)</li><li>React 19</li><li>TypeScript</li><li>Tailwind CSS v4</li>
       <li>PostgreSQL</li><li>Prisma v7</li><li>Supabase Auth</li><li>Zod</li>
@@ -125,7 +102,7 @@
       <a href="https://github.com/nkn-ms/vscode-cd-to-active-file-directory">ソースコード</a>
     </p>
     <p>
-      編集中のファイルがあるディレクトリへ、ステータスバーのボタンひとつでターミナルを <code>cd</code> させる VS Code 拡張です。
+      ターミナル上のディレクトリ移動を UI 上で実現できるよう、ステータスバーに移動ボタンを配置した VS Code 拡張です。
       Visual Studio Marketplace で公開しています。
     </p>
     <ul class="tags">
@@ -133,9 +110,52 @@
     </ul>
   </article>
 
-  <footer>
-    <p>お問い合わせは <a href="https://github.com/nkn-ms">GitHub</a> からお願いします。</p>
-  </footer>
+  <article class="work">
+    <h2>Next.js sample with PokéAPI</h2>
+    <p class="links">
+      <a href="https://nextjs-sample-one-weld.vercel.app">サイトを開く</a>
+      <a href="https://github.com/nkn-ms/nextjs-sample">ソースコード</a>
+    </p>
+    <p>
+      PokéAPI からポケモンの情報を取得して表示する SPA です。Atomic Design でコンポーネントを分割し、Storybook で管理しています。
+    </p>
+    <ul class="tags">
+      <li>Next.js 14</li><li>TypeScript</li><li>Redux</li><li>Material Tailwind</li>
+      <li>Atomic Design</li><li>Storybook</li><li>Vercel</li>
+    </ul>
+  </article>
+
+  <h3>外部への貢献</h3>
+  <ul class="list">
+    <li>
+      <a href="https://github.com/mdn/translated-content/pull/24175">MDN 日本語版の誤訳修正（マージ済み）</a>
+      <span class="desc">「論理和 (||)」のページで、例の式が原文と食い違っていた点を修正。<a href="https://github.com/mozilla-japan/translation/issues/792">誤訳の指摘</a> から対応まで行いました。</span>
+    </li>
+  </ul>
+
+  <h3>記事</h3>
+  <ul class="list">
+    <li>
+      <a href="https://note.com/cute_colt1341/n/n44ceb36c1567">AI に 2025 年の共通テストの予想問題を作成させようとして失敗した話</a>
+      <span class="desc">ChatGPT・RAG（note）</span>
+    </li>
+    <li>
+      <a href="https://qiita.com/nkn-ms">Qiita</a>
+      <span class="desc">技術記事</span>
+    </li>
+  </ul>
+
+  <h3>アカウント</h3>
+  <ul class="list">
+    <li>
+      <a href="https://github.com/nkn-ms">GitHub</a>
+      <span class="desc">github.com/nkn-ms</span>
+    </li>
+    <li>
+      <a href="https://atcoder.jp/users/nknms">AtCoder</a>
+      <span class="desc">茶色コーダー</span>
+    </li>
+  </ul>
 
 </div>
 </body>
