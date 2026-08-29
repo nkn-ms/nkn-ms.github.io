@@ -13,6 +13,7 @@
     --border: #e5e7eb;
     --link: #1d4ed8;       /* blue-700 */
     --tag-bg: #f7f7f8;
+    --icon-external: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E");
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -40,6 +41,18 @@
 
   a { color: var(--link); }
   a:hover { text-decoration: none; }
+
+  /* 外部リンクであることを示すアイコン。currentColor で着色するため配色に追随する */
+  a[target="_blank"]::after {
+    content: "";
+    display: inline-block;
+    width: .72em; height: .72em;
+    margin-left: .22em;
+    vertical-align: -.04em;
+    background-color: currentColor;
+    -webkit-mask: var(--icon-external) center / contain no-repeat;
+    mask: var(--icon-external) center / contain no-repeat;
+  }
 
   h1 { font-size: 1.6rem; margin: 0 0 2.5rem; letter-spacing: .01em; }
   h2 { font-size: 1.1rem; margin: 0 0 .35rem; }
@@ -80,13 +93,13 @@
   <article class="work">
     <h2>Errata Hub</h2>
     <p class="links">
-      <a href="https://errata-hub.vercel.app">サイトを開く</a>
-      <a href="https://github.com/nkn-ms/errata-hub">ソースコード</a>
+      <a href="https://errata-hub.vercel.app" target="_blank" rel="noopener">サイトを開く</a>
+      <a href="https://github.com/nkn-ms/errata-hub" target="_blank" rel="noopener">ソースコード</a>
     </p>
     <p>
       技術書で見つけた誤りや改善案を読者が投稿して共有できる公開サイトです。
       不特定多数が投稿する公開 UGC を題材に、認証・認可・データ整合性・セキュリティを一通り実装しました。実際に運用しています。
-      設計上の判断は <a href="https://github.com/nkn-ms/errata-hub#readme">README</a> に記載しています。
+      設計上の判断は <a href="https://github.com/nkn-ms/errata-hub#readme" target="_blank" rel="noopener">README</a> に記載しています。
     </p>
     <ul class="tags">
       <li>Next.js 16 (App Router)</li><li>React 19</li><li>TypeScript</li><li>Tailwind CSS v4</li>
@@ -98,8 +111,8 @@
   <article class="work">
     <h2>cd to active file directory in statusbar</h2>
     <p class="links">
-      <a href="https://marketplace.visualstudio.com/items?itemName=nkn-ms.cd-to-active-file-directory-in-statusbar">Marketplace</a>
-      <a href="https://github.com/nkn-ms/vscode-cd-to-active-file-directory">ソースコード</a>
+      <a href="https://marketplace.visualstudio.com/items?itemName=nkn-ms.cd-to-active-file-directory-in-statusbar" target="_blank" rel="noopener">Marketplace</a>
+      <a href="https://github.com/nkn-ms/vscode-cd-to-active-file-directory" target="_blank" rel="noopener">ソースコード</a>
     </p>
     <p>
       ターミナル上のディレクトリ移動を UI 上で実現できるよう、ステータスバーに移動ボタンを配置した VS Code 拡張です。
@@ -113,8 +126,8 @@
   <article class="work">
     <h2>Next.js sample with PokéAPI</h2>
     <p class="links">
-      <a href="https://nextjs-sample-one-weld.vercel.app">サイトを開く</a>
-      <a href="https://github.com/nkn-ms/nextjs-sample">ソースコード</a>
+      <a href="https://nextjs-sample-one-weld.vercel.app" target="_blank" rel="noopener">サイトを開く</a>
+      <a href="https://github.com/nkn-ms/nextjs-sample" target="_blank" rel="noopener">ソースコード</a>
     </p>
     <p>
       PokéAPI からポケモンの情報を取得して表示する SPA です。Atomic Design でコンポーネントを分割し、Storybook で管理しています。
@@ -128,11 +141,11 @@
   <h3>外部への貢献</h3>
   <ul class="list">
     <li>
-      <a href="https://github.com/mdn/translated-content/pull/24175">MDN 日本語版の誤訳修正（プルリクエスト・マージ済み）</a>
+      <a href="https://github.com/mdn/translated-content/pull/24175" target="_blank" rel="noopener">MDN 日本語版の誤訳修正（プルリクエスト・マージ済み）</a>
       <span class="desc">mdn/translated-content #24175 — 「論理和 (||)」のページで、例の式が原文と食い違っていた点を修正。2024-10-21 マージ。</span>
     </li>
     <li>
-      <a href="https://github.com/mozilla-japan/translation/issues/792">誤訳の指摘と翻訳コミュニティでのやり取り</a>
+      <a href="https://github.com/mozilla-japan/translation/issues/792" target="_blank" rel="noopener">誤訳の指摘と翻訳コミュニティでのやり取り</a>
       <span class="desc">mozilla-japan/translation #792 — 誤訳を報告し、メンテナーに訳文・原文の両方を確認いただいたうえで、上記のプルリクエストを自分で作成して対応しました。</span>
     </li>
   </ul>
@@ -140,11 +153,11 @@
   <h3>アカウント</h3>
   <ul class="list">
     <li>
-      <a href="https://github.com/nkn-ms">GitHub</a>
+      <a href="https://github.com/nkn-ms" target="_blank" rel="noopener">GitHub</a>
       <span class="desc">github.com/nkn-ms</span>
     </li>
     <li>
-      <a href="https://atcoder.jp/users/nknms">AtCoder</a>
+      <a href="https://atcoder.jp/users/nknms" target="_blank" rel="noopener">AtCoder</a>
       <span class="desc">茶色コーダー</span>
     </li>
   </ul>
